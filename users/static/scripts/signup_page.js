@@ -2,7 +2,7 @@ let email_valid=false,password_valid=false,fullname_valid=false;
         $("#signup_submit").click(()=>{
             if(email_valid&&password_valid&&fullname_valid){
                 $.ajax({
-                    url:"{%url 'signup'%}",
+                    url:"/signup",
                     type:"post",
                     data:{
                         username:fullname_valid,
