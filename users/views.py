@@ -114,4 +114,24 @@ def remove_from_cart(req):
 
 @login_required(login_url='')
 def cart(req):
-    return render(req,'cart.html')
+	try:
+		cart=models.Cart.objects.filter(user=req.user).first()
+		if cart is None:
+			cart_items=[]
+		else:
+			cart_items=cart.item.all()
+		
+		cart_items_data=[]
+		
+		for cart_item in cart_items:
+			cart_items_data.append(requests.get(f"https://api.escuelajs.co/api/v1/products/{cart_item.product}").json())
+		return render(req,'cart.html',{'cart':cart_items_data})
+	except :
+		return HttpResponse("Something went wrong in our end<br>Please try again")
+   # if cart is None:
+			# cart_item=[]
+   # else:
+			# cart_item=cart.item
+   # return render(req,'cart.html',{"cart":cart_item})
+	# except:
+ #   	return HttpResponse("Something went wrong in our end<br>Please try again")

@@ -28,20 +28,21 @@
                         class="fa-solid fa-person-walking-dashed-line-arrow-right"></i></button></a>
         </div>
     </header>
-    <nav>
+    <nav class="hide_scrollbar">
         <div >
-            <span class="selected" href="/">Home</span>
-            <span href="/cart">Cart</span>
+        	
+            <span class="{%block 'home_nav'%}{%endblock%}" href="/">Home</span>
+            <span href="/cart" class="{%block 'cart_nav'%}{%endblock%}">Cart</span>
         </div>
-        <div>
+        <!-- <div class="row center_y g1">
             <div id="search_part">
                 <input type="text" placeholder="What you want to purchase?">
             </div>
             <i class="fa-solid fa-magnifying-glass" id="search_btn"></i>
-        </div>
+        </div> -->
         <script>
             $('nav>div:first-child>span').click(function(){
-                
+                location.href=$(this).attr("href")
             })
         </script>
     </nav>

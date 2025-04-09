@@ -1,1 +1,58 @@
-{%extends 'layout/header.html'}
+{%extends 'layouts/header.html'%}
+{%load static%}
+
+{%block 'cart_nav'%}selected{%endblock%}
+{%block 'main_part'%}
+	<link rel="stylesheet" href="{%static 'css/cart_page.css'%}" title="" type="" />
+	<div id="cart_page" class="column center_y g2">
+		<div style="width:100%;">
+			<span>Added Items in Cart</span>
+		</div> 
+		{%if cart|length == 0%}
+		<div style="flex-grow:1;" class="row center_y center_x" >
+			<span style="color:var(--black)">There is nothing left on your cart</span>
+		</div>
+		{%endif%}
+		{%for item in cart%}
+		<div  class="row cart_item">
+			<div class="cart_img">
+				<img src="{{item.images|first}}" alt="" />
+			</div>
+			<div class="cart_item_disc column center_x g1" style="flex-grow:1">
+				<span>{{item.title}}</span>
+				<div style="width:100%;justify-content:space-between;" class="row">
+					<span style="color:var(--black);font-weight:bold;">{{item.price}} $</span>
+					<span class="fa-solid fa-trash remove_from_cart" style="margin-right:10px;color:var(--red)" product="{{item.id}}"></span>
+				</div>
+			</div>
+		</div>
+		{%endfor%}
+		
+		<script type="text/javascript" charset="utf-8">
+			$(".remove_from_cart").click(function(){
+				var id=Number($(this).attr("product"))
+				
+				if(!confirm("are you sure want to remove this item from cart"))return
+				
+				$.post({
+					url:"/cart/remove",
+					data:{
+						id:id,
+						csrfmiddlewaretoken:"{{csrf_token}}"
+					},
+					success:res=>{
+						if(typeof res=="string"){
+							location.href="/"
+							return
+						}
+						
+						if(res.err==false){
+							location.reload()
+						}
+					}
+				})
+			})
+		</script>
+	</div>
+	
+{%endblock%}

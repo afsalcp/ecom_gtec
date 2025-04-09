@@ -1,4 +1,5 @@
 {%extends 'login.html'%}
+{%load static%}
 
 {%block 'welcome_text'%}
     <div>
@@ -30,5 +31,5 @@
         <span>Already have an account ?&nbsp; </span>
         <a href="{%url 'login'%}">Login here</a>
     </div>
-    <script src="{%static 'scripts/signup_page.js%}"></script>
+    <script src="{%static 'scripts/signup_page.js'%}"></script>
 {%endblock%}
