@@ -31,5 +31,8 @@
         <span>Already have an account ?&nbsp; </span>
         <a href="{%url 'login'%}">Login here</a>
     </div>
+    <script type="text/javascript" charset="utf-8">
+    	let csrfToken="{{csrf_token}}"
+    </script>
     <script src="{%static 'scripts/signup_page.js'%}"></script>
 {%endblock%}

@@ -8,7 +8,7 @@ let email_valid=false,password_valid=false,fullname_valid=false;
                         username:fullname_valid,
                         password:password_valid,
                         email:email_valid,
-                        csrfmiddlewaretoken:"{{csrf_token}}"
+                        csrfmiddlewaretoken:csrfToken
                     },
                     success:(res)=>{
                         if(res.err){
