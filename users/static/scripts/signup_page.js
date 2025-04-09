@@ -11,6 +11,7 @@ let email_valid=false,password_valid=false,fullname_valid=false;
                         csrfmiddlewaretoken:csrfToken
                     },
                     success:(res)=>{
+                    	console.log(res)
                         if(res.err){
                             $('#form_errors').html(`
                                 ${
@@ -22,6 +23,9 @@ let email_valid=false,password_valid=false,fullname_valid=false;
                         }else{
                             location.href=res.redirect
                         }
+                    },
+                    error:e=>{
+                    	console.log(e)
                     }
                 })
             }
