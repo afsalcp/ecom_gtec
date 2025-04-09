@@ -1,0 +1,45 @@
+{%extends 'layouts/header.html'%}
+{%load static%}
+{%load dict_functions%}
+
+{%block 'main_part'%}
+<link rel="stylesheet" href="{%static 'css/home.css'%}">
+    <div id="home">
+        {%for cat in prod_keys%}
+            
+                <div class="prod_by_cat">
+                    <div>
+                        <h1 class="prod_cat_head">Latest Products in {{cat|title}}</h1>
+                    </div>
+                    <div class="cards_part">
+                        {%for prod in products|get_list:cat%}
+                            <div class="prod_card" prod="{{prod.id}}">
+                                <div class="prod_card_img">
+                                    <img src="{{prod.images|first}}" alt="" style="border-radius: 8px;object-fit: cover;">
+                                </div>
+                                <div class="prod_card_details">
+                                    <p class="prod_card_title">{{prod.title}}</p>
+                                    <div>
+                                        <span class="prod_card_brand">{{prod.brand}}</span>
+                                        <span class="prod_card_price">{{prod.price}}$</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            
+        {%endfor%}
+    </div>
+
+    <script>
+        $('.prod_card').click(function(){
+            var id=$(this).attr('prod')
+            location.href='/product?id='+id
+        })
+    </script>
+{%endblock%}
+
+<!-- 
+
+-->

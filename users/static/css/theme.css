@@ -1,0 +1,90 @@
+:root{
+    --yellow:#fac532;
+    --white:#edfbff;
+    --black:#0f0f12;
+    --box-shadow:0 0 10px 1px #070c114a;
+    --grey:#a89b9b;
+    --red:#f00e30;
+    --green:#0bb62a;
+    --yellow-shade:#fac53288;
+}
+
+.hide_scrollbar::-webkit-scrollbar{
+    display: none;
+}
+
+@font-face {
+    font-family: normal;
+    src: url(/static/fonts/WinkySans-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: sub_head;
+    src: url(/static/fonts/SignikaNegative-VariableFont_wght.ttf);
+}
+
+*{
+    font-family: normal;
+    padding: 0;
+    margin: 0;
+}
+
+@media screen and (max-width:600px) {
+    h1{
+        font-size: 24px;
+    }
+}
+
+::-webkit-scrollbar{
+    height: 5px;
+
+}
+
+::-webkit-scrollbar-track{
+    background-color: var(--yellow-shade);
+}
+
+::-webkit-scrollbar-thumb{
+    border-radius: 8px;
+
+    background-color: var(--yellow);
+}
+
+.row{
+    display: flex;
+}
+.column{
+    display: flex;
+
+    flex-direction: column;
+}
+
+.center_x{
+    justify-content: center;
+
+}
+
+.center_y{
+    align-items: center;
+}
+
+.space_between_x{
+    justify-content: space-between;
+}
+
+.space_between_y{
+    align-items: space-between;
+}
+.g1{
+    gap: 10px;
+}
+.g2{
+    gap: 20px;
+}
+
+.g1_5{
+    gap: 15px;
+}
+.g3{
+    gap: 30px;
+}

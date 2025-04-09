@@ -1,0 +1,34 @@
+{%extends 'login.html'%}
+
+{%block 'welcome_text'%}
+    <div>
+        <h1>New here?</h1>
+        <span>Let's make it official—create your account!</span>
+    </div>
+{%endblock%}
+
+{%block 'form_section'%}
+    <h1>Signup</h1>
+    <span>Please fill your details to continue</span>
+    <div class="inp_back" style="margin-top: 30px;">
+        <span>Username:</span>
+        <input type="texrt" placeholder="johnwick" name="fullname">
+        <span class="fa-solid fa-circle-xmark wrong" ></span>
+    </div>
+    <div class="inp_back" style="margin-top: 15px;">
+        <span>Email:</span>
+        <input type="email" placeholder="abcdefg@hij.com" name="email">
+        <span class="fa-solid fa-circle-xmark wrong" ></span>
+    </div>
+    <div class="inp_back" style="margin-top: 15px;">
+        <span>Password:</span>
+        <input type="password" placeholder="abcdEFG!@#$123" name="password">
+        <span class="fa-solid fa-circle-xmark wrong" ></span>
+    </div>
+    <button id="signup_submit">Signup</button>
+    <div style="margin-top: 20px;display: flex;justify-content: center;">
+        <span>Already have an account ?&nbsp; </span>
+        <a href="{%url 'login'%}">Login here</a>
+    </div>
+    <script src="{%static 'scripts/signup_page.js%}"></script>
+{%endblock%}

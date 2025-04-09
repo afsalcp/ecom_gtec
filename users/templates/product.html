@@ -1,0 +1,103 @@
+{%extends 'layouts/header.html'%}
+{%load static%}
+{%block 'main_part'%}
+    <link rel="stylesheet" href="{%static 'css/product.css'%}">
+    <div id="product">
+        <div>
+            <img src="{{product.images|first}}" alt="" id="product_image" style="border-radius: 8px;object-fit: cover;margin-top: 40px;">
+        </div>
+        <div>
+            <h1 id="product_title">{{product.title}}</h1>
+            <p id="product_desc">{{product.description}}</p>
+
+            <div>
+                <span id="product_price">{{product.price}}$</span>
+                <div id="color_back">
+                    <span class="prod_label">Color : </span>
+                    <div  style="width: 40px;height: 40px;border-radius: 50%;border: solid 1px black;background-color: {{product.color}};color:var(--grey)"></div>
+                </div>
+                
+            </div>
+            <div class="row space_between_x g1" style="flex-wrap: wrap;">
+                <!-- <div class="row g1">
+                    <span class="prod_label">Brand : </span>
+                    <span class="prod_label_value">{{product.brand}}</span>
+                </div> -->
+                <div class="row g1">
+                    <span class="prod_label">Category : </span>
+                    <span class="prod_label_value">{{product.category.name}}</span>
+                </div>
+                <!-- <div class="row g1">
+                    <span class="prod_label">Model : </span>
+                    <span class="prod_label_value">{{product.model}}</span>
+                </div> -->
+            </div>
+        </div>
+        
+    </div>
+    <div style="height: 100px;"></div>
+    <div id="add_to_cart_part">
+        {%if cart_sts%}
+            <span>Changed your mind? No worries, you can remove it anytime. </span>
+            <button class="scale_anim" type="remove">Remove from Cart</button>
+        {%else%}
+            <span>Love it? Grab it before it's gone! </span>
+            <button class="scale_anim" type="add">Add To Cart</button>
+        {%endif%}
+    </div>
+
+    <script>
+        function refresh_event(){
+
+            $('#add_to_cart_part>button[type=add]').click((e)=>{
+                var id="{{product.id}}"
+
+                $.post({
+                    url:"/cart/add",
+                    data:{
+                        id:Number(id),
+                        csrfmiddlewaretoken:"{{csrf_token}}"
+                    },
+                    success:(res)=>{
+                        if(typeof res=="string"){
+                            location.href='/'
+                        }else{
+                        
+                            if(res.err==false){
+                                $(e.currentTarget).parent().html(`<span>Changed your mind? No worries, you can remove it anytime. </span>
+                                    <button class="scale_anim" type="remove">Remove from Cart</button>`)
+                                refresh_event()
+                            }
+                        }
+                    }
+                })
+            })
+
+            $('#add_to_cart_part>button[type=remove]').click((e)=>{
+                var id=Number("{{product.id}}")
+
+                $.post({
+                    url:'/cart/remove',
+                    data:{
+                        id,
+                        csrfmiddlewaretoken:"{{csrf_token}}"
+                    },
+                    success:(res)=>{
+                        if(typeof res=="string"){
+                            location.href='/'
+                        }else{
+                        
+                            if(res.err==false){
+                                $(e.currentTarget).parent().html(`<span>Love it? Grab it before it's gone! </span>
+        <button                     class="scale_anim" type="add">Add To Cart</button>`)
+                                refresh_event()
+                            }
+                        }
+                    }
+                })
+            })
+        }
+
+        refresh_event()
+    </script>
+{%endblock%}

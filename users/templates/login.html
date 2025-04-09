@@ -1,0 +1,110 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back</title>
+    <link rel="stylesheet" href="{%static 'css/theme.css'%}">
+    <link rel="stylesheet" href="{%static 'css/login_page.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div id="main_part" class="hide_scrollbar">
+        <div>
+            <div >
+                <img src="{%static 'img/flower.png'%}" alt="" class="flower_img">
+            </div>
+            {%block 'welcome_text'%}
+            <div>
+                <h1>Welcome Back</h1>
+                <span>You're back! Let's pick up where we left off. Log in to continue</span>
+            </div>
+            {%endblock%}
+            <div>
+                <img src="{%static 'img/user_purchase.png'%}" alt="">
+            </div>
+        </div>
+        <div>
+            <div>
+                {%block 'form_section'%}
+                <h1>Login</h1>
+                <span>Please fill your details to continue</span>
+                <div class="inp_back" style="margin-top: 50px;">
+                    <span>Email:</span>
+                    <input type="email" placeholder="abcdefg@hij.com" name="email">
+                    <span class="fa-solid fa-circle-xmark wrong" ></span>
+                </div>
+                <div class="inp_back" style="margin-top: 50px;">
+                    <span>Password:</span>
+                    <input type="password" placeholder="abcdEFG!@#$123" name="password">
+                    <span class="fa-solid fa-circle-xmark wrong" ></span>
+                </div>
+                <button id="login_submit">Login</button>
+                <div style="margin-top: 20px;display: flex;justify-content: center;">
+                    <span>Dont have an account ?&nbsp; </span>
+                    <a href="{%url 'signup'%}">Create one</a>
+                </div>
+                <script >
+                    let email_valid=false,password_valid=false;
+                    $("#login_submit").click(()=>{
+                        if(email_valid&&password_valid){
+                            $.ajax({
+                                url:"/",
+                                type:"post",
+                                data:{
+                                    'email':email_valid,
+                                    password:password_valid,
+                                    csrfmiddlewaretoken:"{{csrf_token}}"
+                                },
+                                success:res=>{
+                                    if(res.err){
+                                        $('#form_errors').html(
+                                         
+                                                res.msg.reduce((t,c)=>{
+                                                    return t+=`<span style="margin-top:10px">${c}</span>`
+                                                },"")
+                                            
+                                        )
+                                    }else{
+                                        location.href=res.redirect
+                                    }
+                                }
+                            })
+                        }
+                    })
+
+                    $("input[name=email]").keyup(function(){
+                        var email=$(this).val()
+
+                        if(/^(.+){3,}@(.+){2,20}\.(.+){2,10}$/.test(email)){
+                            email_valid=email
+                            $(this).next('span').removeClass('fa-circle-xmark').addClass("fa-circle-check").addClass('okey').removeClass('wrong')
+                        }else {
+                            email_valid=false
+                            $(this).next('span').removeClass('fa-circle-check').addClass("fa-circle-xmark").addClass('wrong').removeClass('okey')
+                        }
+                    })
+
+                    $("input[name=password]").keyup(function(){
+                        var password=$(this).val()
+
+                        if(password.length>=8&&/[a-z]/.test(password)&&/[A-Z]/.test(password)&&/[0-9]/.test(password)&&/[^a-zA-Z0-9]/.test(password)){
+                            password_valid=password;
+                            $(this).next('span').removeClass('fa-circle-xmark').addClass("fa-circle-check").addClass('okey').removeClass('wrong')
+                        }else{
+                            password_valid=false;
+                            $(this).next('span').removeClass('fa-circle-check').addClass("fa-circle-xmark").addClass('wrong').removeClass('okey')
+                        }
+                    })
+                </script>
+                {%endblock%}
+            </div>
+            <div id="form_errors" style="display: flex;flex-direction: column;align-items: center;color:var(--red)">
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

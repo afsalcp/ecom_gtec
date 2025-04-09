@@ -1,0 +1,152 @@
+#product{
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 20px;
+}
+
+#product>div{
+    max-width: 48%;
+    
+    min-width: 300px;
+}
+
+
+#product_image{
+    width: 100%;
+    max-height: 500px;
+
+    object-fit: contain;
+}
+
+#product>div:last-child{
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 20px;
+}
+
+#product_title{
+    font-size: 25px;
+
+    font-family: sub_head;
+
+    display: -webkit-box;              
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;             
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: calc(1.2em * 2);       
+    line-height: 1.2em;
+
+}
+
+#product_desc{
+    color: var(--grey);
+
+    
+}
+
+#color_back{
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+#product_desc+div{
+    width: 100%;
+
+    display: flex;
+    
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+#product_price{
+    color: var(--green);
+    font-size: 30px;
+
+    font-family: sub_head;
+    font-weight: bold;
+}
+
+.prod_label{
+    color: var(--grey);
+
+    font-size: 20px;
+    font-family: sub_head;
+}
+
+.prod_label_value{
+    color: var(--black);
+
+    font-size: 20px;
+    font-family: sub_head;
+    font-weight: bold;
+}
+
+#add_to_cart_part{
+    height: 60px;
+
+    position: fixed;
+
+    width: 100%;
+    bottom: 0;
+
+    background-color: var(--yellow-shade);
+
+    display: flex;
+    flex-wrap: wrap;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 20px;
+}
+
+#add_to_cart_part>span{
+    color: var(--black);
+    
+    font-weight: bold;
+
+    font-family: sub_head;
+}
+#add_to_cart_part>button{
+    border: none;
+
+    color: white;
+
+    font-family: sub_head;
+
+    border-radius: 5px;
+
+    padding-inline: 30px;
+
+    height: 35px;
+}
+#add_to_cart_part>button[type=add]{
+    
+
+    background-color: var(--yellow);
+
+    
+}
+
+#add_to_cart_part>button:hover{
+    background: none;
+
+    border: solid 2px var(--yellow);
+
+}
+
+#add_to_cart_part>button[type=remove]{
+    background-color: var(--red);
+}
