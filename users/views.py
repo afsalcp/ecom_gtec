@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views import View
 from django.http import HttpResponse,JsonResponse
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 
 from . import forms,models
@@ -112,7 +112,7 @@ def remove_from_cart(req):
         return JsonResponse({'err':True,'msg':'Something went wrong'})
     
 
-@login_required(login_url='')
+@login_required(login_url='/')
 def cart(req):
 	try:
 		cart=models.Cart.objects.filter(user=req.user).first()
@@ -135,3 +135,8 @@ def cart(req):
    # return render(req,'cart.html',{"cart":cart_item})
 	# except:
  #   	return HttpResponse("Something went wrong in our end<br>Please try again")
+
+def logout(res):
+    if res.is_authenticated:
+          logout()
+    return redirect('/')

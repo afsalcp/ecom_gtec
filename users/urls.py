@@ -7,5 +7,6 @@ urlpatterns=[
     path('product',views.product_data,name='product'),
     path('cart/add',views.add_to_cart,name='add_to_cart'),
     path('cart/remove',views.remove_from_cart,name='remove_from_cart'),
-    path('cart',views.cart,name='cart')
+    path('cart',views.cart,name='cart'),
+    path('/logout',views.logout,name='logout')
 ]
